@@ -36,7 +36,8 @@ RUN apt-get update && \
     libncurses5-dev \
     automake \
     libtool \
-    bison
+    bison \
+    sudo
 
 # Set Locale and Timezone
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
