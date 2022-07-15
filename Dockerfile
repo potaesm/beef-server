@@ -2,6 +2,10 @@ FROM debian:11
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
+ARG PASSWORD
+ARG BEEF_USER
+ARG BEEF_PASSWORD
+
 RUN echo "root:$PASSWORD" | chpasswd
 
 # App utils
