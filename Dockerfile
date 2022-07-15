@@ -69,19 +69,12 @@ RUN apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Ruby
-# RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
-# RUN curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import - && \
-#     curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import - && \
-#     curl -sSL https://get.rvm.io | sudo bash -s stable
-# RUN . /etc/profile.d/rvm.sh && \
-#     /usr/local/rvm/scripts/rvm requirements && \
-#     /usr/local/rvm/scripts/rvm install 2.7 && \
-#     /usr/local/rvm/scripts/rvm use 2.7 --default
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7 && rvm use 2.7 --default"
 RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
     cd rubygems && \
+    cd /usr/local/rvm/gems/ruby-2.7.6 && ls -la && cd ~/ && \
     ruby setup.rb
 RUN gem install bundler
 
