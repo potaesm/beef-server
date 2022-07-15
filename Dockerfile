@@ -59,9 +59,9 @@ RUN apt-get update && \
 # RUN apt-get update
 
 # NodeJS
-# RUN apt-get install -y --no-install-recommends npm && \
-#     npm install n -g && \
-#     n lts
+RUN apt-get install -y --no-install-recommends npm && \
+    npm install n -g && \
+    n lts
 
 # Clean up
 RUN apt-get clean -y && \
@@ -74,10 +74,8 @@ RUN curl -sSL https://get.rvm.io | bash -s
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.5.3 && rvm use 2.5.3 --default && gem install bundler"
 
 # BeEF
-RUN git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && \
-    cd beef && \
-    bundle install && \
-    ./generate-certificate && \
+RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
+RUN cd beef && \
     sed -i "s/# public:/public:/" config.yaml && \
     sed -i "s/#     host: \"\" # public hostname/IP address/    host: \"beef-tool.herokuapp.com\" # public hostname/IP address/" config.yaml && \
     sed -i "s/#     https: false # true/false:/    https: true # true/false/" config.yaml && \
