@@ -2,7 +2,6 @@ FROM debian:11
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
-ARG PASSWORD
 ARG BEEF_USER
 ARG BEEF_PASSWORD
 
@@ -69,8 +68,8 @@ RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /beef &
     cd beef && \
     bundle install --without test development && \
     ./generate-certificate && \
-    # sed -i "s/user:   \"beef\"/user: \"${BEEF_USER}\"/" config.yaml && \
-    # sed -i "s/passwd: \"beef\"/passwd: \"${BEEF_PASSWORD}\"/" config.yaml && \
+    sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
+    sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
     cd ..
 
 # Clean up
