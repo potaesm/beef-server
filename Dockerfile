@@ -6,7 +6,7 @@ ARG PASSWORD
 ARG BEEF_USER
 ARG BEEF_PASSWORD
 
-RUN echo "root:$PASSWORD" | chpasswd
+RUN echo 'root:$PASSWORD' | chpasswd
 
 # App utils
 RUN apt-get update && \
