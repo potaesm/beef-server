@@ -67,11 +67,10 @@ RUN apt-get install -y --no-install-recommends npm && \
 RUN curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import - && \
     curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import - && \
     curl -sSL https://get.rvm.io | sudo bash -s stable
-SHELL ["/bin/bash", "-l", "-c"]
 RUN . /etc/profile.d/rvm.sh && \
-    rvm requirements && \
-    rvm install 2.7 && \
-    rvm use 2.7 --default
+    /usr/local/rvm/scripts/rvm requirements && \
+    /usr/local/rvm/scripts/rvm install 2.7 && \
+    /usr/local/rvm/scripts/rvm use 2.7 --default
 RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
     cd rubygems && \
     ruby setup.rb
