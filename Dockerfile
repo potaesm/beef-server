@@ -76,9 +76,9 @@ RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.4 && rvm use 2.7
 # BeEF
 RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
 RUN cd beef && \
-    sed -i 's/# public:/public:/' config.yaml && \
-    sed -i 's/#     host: "" # public hostname/IP address/    host: "beef-tool.herokuapp.com" # public hostname/IP address/' config.yaml && \
-    sed -i 's/#     https: false # true/false:/    https: true # true/false/' config.yaml && \
+    sed -i "s/# public:/public:/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     https: false/     https: true/" config.yaml && \
     sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
     cd ..
