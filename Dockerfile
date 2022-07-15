@@ -67,8 +67,8 @@ RUN apt-get install -y --no-install-recommends npm && \
 RUN curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import - && \
     curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import - && \
     curl -sSL https://get.rvm.io | sudo bash -s stable
+SHELL ["/bin/bash", "-l", "-c"]
 RUN . /etc/profile.d/rvm.sh && \
-    cd /opt && ls -la && cd .. && \
     rvm requirements && \
     rvm install 2.7 && \
     rvm use 2.7 --default
