@@ -63,6 +63,11 @@ RUN apt-get install -y --no-install-recommends npm && \
     npm install n -g && \
     n lts
 
+# Clean up
+RUN apt-get clean -y && \
+    echo "nameserver 1.1.1.1" > /etc/resolv.conf && \
+    rm -rf /var/lib/apt/lists/*
+
 # Ruby
 # RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
 # RUN curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import - && \
@@ -72,7 +77,7 @@ RUN apt-get install -y --no-install-recommends npm && \
 #     /usr/local/rvm/scripts/rvm requirements && \
 #     /usr/local/rvm/scripts/rvm install 2.7 && \
 #     /usr/local/rvm/scripts/rvm use 2.7 --default
-RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7 && rvm use 2.7 --default"
 RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
@@ -91,11 +96,6 @@ RUN git clone --depth=1 --recursive https://github.com/beefproject/beef.git /bee
     sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
     cd ..
-
-# Clean up
-RUN apt-get clean -y && \
-    echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
-    rm -rf /var/lib/apt/lists/*
 
 # Turn off swap
 RUN swapoff -a
