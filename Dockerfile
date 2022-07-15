@@ -2,8 +2,7 @@ FROM debian:11
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
-ARG BEEF_USER
-ARG BEEF_PASSWORD
+ENV TERM xterm
 
 RUN echo 'root:root' | chpasswd
 
