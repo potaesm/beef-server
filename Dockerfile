@@ -72,10 +72,6 @@ RUN apt-get clean -y && \
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s
 RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.5.3 && rvm use 2.5.3 --default"
-RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
-    cd rubygems && \
-    cd /usr/local/rvm/gems/ruby-2.5.3/bin && ls -la && cd ~/ && \
-    /usr/local/rvm/gems/ruby-2.5.3/bin/ruby setup.rb
 RUN gem install bundler
 
 # BeEF
