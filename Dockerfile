@@ -15,6 +15,8 @@ RUN apt-get update && \
     ca-certificates \
     locales \
     net-tools \
+    curl \
+    wget \
     git \
     openssl \
     libreadline6-dev \
