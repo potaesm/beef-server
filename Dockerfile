@@ -22,6 +22,7 @@ RUN apt-get update && \
     wget \
     git \
     openssl \
+    gnupg2 \
     libcurl4-openssl-dev \
     libreadline6-dev \
     zlib1g zlib1g-dev \
