@@ -3,6 +3,7 @@ FROM debian:11
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
 ENV TERM xterm
+ARG PORT
 
 RUN echo 'root:root' | chpasswd
 
@@ -85,3 +86,7 @@ RUN cd beef && \
 
 # Turn off swap
 RUN swapoff -a
+
+CMD /bin/bash -l cd /beef && exec ./beef -p ${PORT}
+
+EXPOSE ${PORT}
