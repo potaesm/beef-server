@@ -16,7 +16,7 @@ RUN apt-get update && \
     software-properties-common \
     build-essential \
     ca-certificates \
-    locales \
+    # locales \
     net-tools \
     curl \
     wget \
@@ -43,25 +43,25 @@ RUN apt-get update && \
     sudo
 
 # Set Locale and Timezone
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-    echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    dpkg-reconfigure -f noninteractive locales
+# RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
+#     echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
+#     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+#     dpkg-reconfigure -f noninteractive locales
 
 # Set Timezone
-RUN rm /etc/localtime && \
-    echo "Asia/Bangkok" > /etc/timezone && \
-    dpkg-reconfigure -f noninteractive tzdata
+# RUN rm /etc/localtime && \
+#     echo "Asia/Bangkok" > /etc/timezone && \
+#     dpkg-reconfigure -f noninteractive tzdata
 
 # Thai fonts
-RUN apt-get install -y --no-install-recommends xfonts-thai
+# RUN apt-get install -y --no-install-recommends xfonts-thai
 
-RUN apt-get update
+# RUN apt-get update
 
 # NodeJS
-RUN apt-get install -y --no-install-recommends npm && \
-    npm install n -g && \
-    n lts
+# RUN apt-get install -y --no-install-recommends npm && \
+#     npm install n -g && \
+#     n lts
 
 # Clean up
 RUN apt-get clean -y && \
@@ -71,11 +71,11 @@ RUN apt-get clean -y && \
 # Ruby
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7 && rvm use 2.7 --default"
+RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7 && rvm use 2.5.3 --default"
 RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
     cd rubygems && \
-    cd /usr/local/rvm/gems/ruby-2.7.6 && ls -la && cd ~/ && \
-    ruby setup.rb
+    cd /usr/local/rvm/gems/ruby-2.5.3/bin && ls -la && cd ~/ && \
+    /usr/local/rvm/gems/ruby-2.5.3/bin/ruby setup.rb
 RUN gem install bundler
 
 # BeEF
