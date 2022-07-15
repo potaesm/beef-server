@@ -6,7 +6,7 @@ ARG PASSWORD
 ARG BEEF_USER
 ARG BEEF_PASSWORD
 
-RUN echo 'root:${PASSWORD}' | chpasswd
+RUN echo "root:${PASSWORD}" | chpasswd
 
 # App utils
 RUN apt-get update && \
@@ -69,8 +69,8 @@ RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /beef &
     cd beef && \
     bundle install --without test development && \
     ./generate-certificate && \
-    sed -i "s/user:   \"beef\"/user: \"${BEEF_USER}\"/" config.yaml && \
-    sed -i "s/passwd: \"beef\"/passwd: \"${BEEF_PASSWORD}\"/" config.yaml && \
+    # sed -i "s/user:   \"beef\"/user: \"${BEEF_USER}\"/" config.yaml && \
+    # sed -i "s/passwd: \"beef\"/passwd: \"${BEEF_PASSWORD}\"/" config.yaml && \
     cd ..
 
 # Clean up
