@@ -71,7 +71,7 @@ RUN apt-get clean -y && \
 # Ruby
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 RUN curl -sSL https://get.rvm.io | bash -s
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.5.3 && rvm use 2.5.3 --default && gem install bundler"
+RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.4 && rvm use 2.7.4 --default && gem install bundler"
 
 # BeEF
 RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
