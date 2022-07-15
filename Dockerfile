@@ -71,6 +71,8 @@ RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /beef &
     sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
     cd ..
+RUN apt remove --purge beef-xss && \
+    apt-get install -y --no-install-recommends beef-xss
 
 # Clean up
 RUN apt-get clean -y && \
