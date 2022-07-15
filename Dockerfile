@@ -62,12 +62,23 @@ RUN apt-get install -y --no-install-recommends npm && \
     n lts
 
 # Ruby
-RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
+# RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
+RUN curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import - && \
+    curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import - && \
+    curl -sSL https://get.rvm.io | sudo bash -s stable
+RUN source /etc/profile.d/rvm.sh
+RUN rvm requirements
+RUN rvm install 2.7
+RUN rvm use 2.7 --default
+RUN git clone --depth=1 --recursive https://github.com/rubygems/rubygems.git /rubygems && \
+    cd rubygems && \
+    ruby setup.rb
+RUN gem install bundler
 
 # BeEF
-RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /beef && \
+RUN git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && \
     cd beef && \
-    (echo Y & echo Y) | ./install && \
+    bundle install && \
     ./generate-certificate && \
     sed -i "s/# public:/public:/" config.yaml && \
     sed -i "s/#     host: \"\" # public hostname/IP address/    host: \"beef-tool.herokuapp.com\" # public hostname/IP address/" config.yaml && \
