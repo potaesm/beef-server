@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: /beef/beef -p $PORT
+  web: exec /beef/beef -p $PORT
