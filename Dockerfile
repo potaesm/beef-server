@@ -87,6 +87,6 @@ RUN cd beef && \
 # Turn off swap
 RUN swapoff -a
 
-CMD /bin/bash -l cd /beef && exec ./beef -p ${PORT}
+CMD ["bash", "-l", "-c", "cd /beef && exec ./beef -p $PORT"]
 
 EXPOSE ${PORT}
