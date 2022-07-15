@@ -66,10 +66,10 @@ RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
 # BeEF
 RUN git clone --depth=1 --recursive https://github.com/beefproject/beef/ /beef && \
     cd beef && \
-    bundle install --without test development && \
+    Y | ./install && \
     ./generate-certificate && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: "" # public hostname/IP address/    host: \"beef-tool.herokuapp.com\" # public hostname/IP address/" config.yaml && \
+    sed -i "s/#     host: \"\" # public hostname/IP address/    host: \"beef-tool.herokuapp.com\" # public hostname/IP address/" config.yaml && \
     sed -i "s/#     https: false # true/false:/    https: true # true/false/" config.yaml && \
     sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
