@@ -79,9 +79,9 @@ RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproj
 RUN cd beef && \
     sed -i "s/allow_reverse_proxy: false/allow_reverse_proxy: true/" config.yaml && \
     sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
-    sed -i "s/cors_allowed_domains: \"http://browserhacker.com\"/cors_allowed_domains: \"https://beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: \"\"/     host: \"https://beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
     sed -i "s/#     https: false/     https: true/" config.yaml && \
     sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
