@@ -43,25 +43,10 @@ RUN apt-get update && \
     bison \
     sudo
 
-# Set Timezone
-# RUN rm /etc/localtime && \
-#     echo "Asia/Bangkok" > /etc/timezone && \
-#     dpkg-reconfigure -f noninteractive tzdata
-
-# Thai fonts
-RUN apt-get install -y --no-install-recommends xfonts-thai
-
-# RUN apt-get update
-
 # NodeJS
 RUN apt-get install -y --no-install-recommends npm && \
     npm install n -g && \
     n lts
-
-# Clean up
-RUN apt-get clean -y && \
-    echo "nameserver 1.1.1.1" > /etc/resolv.conf && \
-    rm -rf /var/lib/apt/lists/*
 
 # Ruby
 RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
@@ -80,6 +65,13 @@ RUN cd beef && \
     sed -i "s/user:   \"beef\"/user: \"potaesm\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
     cd ..
+
+RUN apt-get update
+
+# Clean up
+RUN apt-get clean -y && \
+    echo "nameserver 1.1.1.1" > /etc/resolv.conf && \
+    rm -rf /var/lib/apt/lists/*
 
 # Turn off swap
 RUN swapoff -a
