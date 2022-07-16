@@ -69,10 +69,10 @@ RUN cd beef && \
     sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
     sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/$BEEF_HOST\"/" config.yaml && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: \"\"/     host: \"$BEEF_HOST\"/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"${BEEF_HOST}\"/" config.yaml && \
     sed -i "s/#     https: false/     https: true/" config.yaml && \
-    sed -i "s/user:   \"beef\"/user: \"$BEEF_USER\"/" config.yaml && \
-    sed -i "s/passwd: \"beef\"/passwd: \"$BEEF_PASSWORD\"/" config.yaml && \
+    sed -i "s/user:   \"beef\"/user: \"${BEEF_USER}\"/" config.yaml && \
+    sed -i "s/passwd: \"beef\"/passwd: \"${BEEF_PASSWORD}\"/" config.yaml && \
     cd ..
 
 # GeoIP
