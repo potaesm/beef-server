@@ -17,7 +17,7 @@ RUN apt-get update && \
     software-properties-common \
     build-essential \
     ca-certificates \
-    # locales \
+    locales \
     net-tools \
     curl \
     wget \
@@ -44,10 +44,10 @@ RUN apt-get update && \
     sudo
 
 # Set Locale and Timezone
-# RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-#     echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-#     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-#     dpkg-reconfigure -f noninteractive locales
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
+    echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    dpkg-reconfigure -f noninteractive locales
 
 # Set Timezone
 # RUN rm /etc/localtime && \
@@ -77,12 +77,12 @@ RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.4 && rvm use 2.7
 # BeEF
 RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
 RUN cd beef && \
-    # sed -i "s/allow_reverse_proxy: false/allow_reverse_proxy: true/" config.yaml && \
+    sed -i "s/allow_reverse_proxy: false/allow_reverse_proxy: true/" config.yaml && \
     # sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
     # sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
-    # sed -i "s/# public:/public:/" config.yaml && \
-    # sed -i "s/#     host: \"\"/     host: \"beef-tool.herokuapp.com\"/" config.yaml && \
-    # sed -i "s/#     https: false/     https: true/" config.yaml && \
+    sed -i "s/# public:/public:/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     https: false/     https: true/" config.yaml && \
     sed -i "s/user:   \"beef\"/user: \"potaesm\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
     cd ..
