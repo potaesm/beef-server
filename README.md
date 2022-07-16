@@ -10,6 +10,7 @@ heroku stack:set container
 ```
 # Config Vars
 ```bash
-BEEF_USER       beefuser
-BEEF_PASSWORD   beefpassword
+BEEF_HOST       beef-server.herokuapp.com
+BEEF_USER       potaesm
+BEEF_PASSWORD   aabbccdd
 ```
