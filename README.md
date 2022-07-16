@@ -1,4 +1,4 @@
-# Terminal Server
+# BeEf Server
 ## Heroku Deployment
 ```bash
 # Create new application and repository
