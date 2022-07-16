@@ -1,6 +1,8 @@
 FROM debian:11
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV USER root
 ENV TERM xterm
@@ -58,9 +60,9 @@ RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproj
 RUN cd beef && \
     sed -i "s/allow_reverse_proxy: false/allow_reverse_proxy: true/" config.yaml && \
     sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
-    sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-server.herokuapp.com\"/" config.yaml && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: \"\"/     host: \"beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"beef-server.herokuapp.com\"/" config.yaml && \
     sed -i "s/#     https: false/     https: true/" config.yaml && \
     sed -i "s/user:   \"beef\"/user: \"potaesm\"/" config.yaml && \
     sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
