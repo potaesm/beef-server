@@ -77,7 +77,7 @@ RUN apt-get clean -y && \
 RUN swapoff -a
 
 # Enable Heroku exec
-# RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 CMD ["bash", "-l", "-c", "cd /beef && exec ./beef -p $PORT"]
 
