@@ -1,3 +1,7 @@
 build:
+  config:
+    BEEF_HOST: beef-server.herokuapp.com
+    BEEF_USER: potaesm
+    BEEF_PASSWORD: aabbccdd
   docker:
     web: Dockerfile

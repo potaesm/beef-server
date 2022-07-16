@@ -8,7 +8,7 @@ heroku git:remote -a APP_NAME
 # Set stack to container
 heroku stack:set container
 ```
-# Config Vars
+# Config Build Args in heroku.yml
 ```bash
 BEEF_HOST       beef-server.herokuapp.com
 BEEF_USER       potaesm

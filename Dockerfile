@@ -1,6 +1,9 @@
 FROM debian:11
 
 ARG PORT
+ARG BEEF_HOST
+ARG BEEF_USER
+ARG BEEF_PASSWORD
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
@@ -52,21 +55,31 @@ RUN apt-get install -y --no-install-recommends npm && \
     n lts
 
 # Ruby
-RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-RUN curl -sSL https://get.rvm.io | bash -s
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.4 && rvm use 2.7.4 --default && gem install bundler"
-
+# RUN curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
+# RUN curl -sSL https://get.rvm.io | bash -s
+# RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.4 && rvm use 2.7.4 --default && gem install bundler"
 # BeEF
-RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
+# RUN /bin/bash -l -c "git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && cd beef && bundle install --without test development && ./generate-certificate && cd .."
+
+# Ruby
+RUN apt-get install -y --no-install-recommends ruby ruby-dev ruby-bundler
+# BeEF
+RUN git clone --depth=1 --recursive https://github.com/beefproject/beef.git /beef && \
+    cd beef && \
+    bundle install --without test development && \
+    ./generate-certificate && \
+    cd ..
+
+# BeEF config
 RUN cd beef && \
     sed -i "s/allow_reverse_proxy: false/allow_reverse_proxy: true/" config.yaml && \
     sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
-    sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-server.herokuapp.com\"/" config.yaml && \
+    sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/$BEEF_HOST\"/" config.yaml && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: \"\"/     host: \"beef-server.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"$BEEF_HOST\"/" config.yaml && \
     sed -i "s/#     https: false/     https: true/" config.yaml && \
-    sed -i "s/user:   \"beef\"/user: \"potaesm\"/" config.yaml && \
-    sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
+    sed -i "s/user:   \"beef\"/user: \"$BEEF_USER\"/" config.yaml && \
+    sed -i "s/passwd: \"beef\"/passwd: \"$BEEF_PASSWORD\"/" config.yaml && \
     cd ..
 
 # GeoIP
