@@ -2,9 +2,6 @@ FROM debian:11
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
-# ENV LANG en_US.UTF-8
-# ENV LANGUAGE en_US.UTF-8
-# ENV LC_ALL en_US.UTF-8
 ENV USER root
 ENV TERM xterm
 ARG PORT
@@ -21,7 +18,6 @@ RUN apt-get update && \
     software-properties-common \
     build-essential \
     ca-certificates \
-    # locales \
     net-tools \
     curl \
     wget \
@@ -47,19 +43,13 @@ RUN apt-get update && \
     bison \
     sudo
 
-# Set Locale and Timezone
-# RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-#     echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-#     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-#     dpkg-reconfigure -f noninteractive locales
-
 # Set Timezone
-# RUN rm /etc/localtime && \
-#     echo "Asia/Bangkok" > /etc/timezone && \
-#     dpkg-reconfigure -f noninteractive tzdata
+RUN rm /etc/localtime && \
+    echo "Asia/Bangkok" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # Thai fonts
-# RUN apt-get install -y --no-install-recommends xfonts-thai
+RUN apt-get install -y --no-install-recommends xfonts-thai
 
 # RUN apt-get update
 
