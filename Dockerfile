@@ -44,9 +44,9 @@ RUN apt-get update && \
     sudo
 
 # Set Timezone
-RUN rm /etc/localtime && \
-    echo "Asia/Bangkok" > /etc/timezone && \
-    dpkg-reconfigure -f noninteractive tzdata
+# RUN rm /etc/localtime && \
+#     echo "Asia/Bangkok" > /etc/timezone && \
+#     dpkg-reconfigure -f noninteractive tzdata
 
 # Thai fonts
 RUN apt-get install -y --no-install-recommends xfonts-thai
