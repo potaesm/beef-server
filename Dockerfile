@@ -81,14 +81,17 @@ RUN cd beef && \
     sed -i "s/allow_cors: false/allow_cors: true/" config.yaml && \
     sed -i "s/cors_allowed_domains: \"http:\/\/browserhacker.com\"/cors_allowed_domains: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
     sed -i "s/# public:/public:/" config.yaml && \
-    sed -i "s/#     host: \"\"/     host: \"https:\/\/beef-tool.herokuapp.com\"/" config.yaml && \
+    sed -i "s/#     host: \"\"/     host: \"beef-tool.herokuapp.com\"/" config.yaml && \
     sed -i "s/#     https: false/     https: true/" config.yaml && \
-    sed -i "s/user:   \"beef\"/user: \"beefuser\"/" config.yaml && \
-    sed -i "s/passwd: \"beef\"/passwd: \"beefpassword\"/" config.yaml && \
+    sed -i "s/user:   \"beef\"/user: \"potaesm\"/" config.yaml && \
+    sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
     cd ..
 
 # Turn off swap
 RUN swapoff -a
+
+# Enable Heroku exec
+# RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 CMD ["bash", "-l", "-c", "cd /beef && exec ./beef -p $PORT"]
 
