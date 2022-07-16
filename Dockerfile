@@ -68,6 +68,9 @@ RUN cd beef && \
     sed -i "s/passwd: \"beef\"/passwd: \"aabbccdd\"/" config.yaml && \
     cd ..
 
+# GeoIP
+COPY GeoIP /usr/share/GeoIP
+
 RUN apt-get update
 
 # Clean up
@@ -77,9 +80,6 @@ RUN apt-get clean -y && \
 
 # Turn off swap
 RUN swapoff -a
-
-# Enable Heroku exec
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 CMD ["bash", "-l", "-c", "cd /beef && exec ./beef -p $PORT"]
 
